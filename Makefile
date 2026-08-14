@@ -3,6 +3,10 @@ build:
 	go build -o dist/aws-parameter-store-tui ./cmd/aws-parameter-store-tui
 	go build -o dist/aws-secrets-manager-tui ./cmd/aws-secrets-manager-tui
 	go build -o dist/aws-ecs-tui ./cmd/aws-ecs-tui
+	go build -o dist/aws-security-group-tui ./cmd/aws-security-group-tui
+	go build -o dist/aws-ec2-tui ./cmd/aws-ec2-tui
+	go build -o dist/aws-route53-tui ./cmd/aws-route53-tui
+	go build -o dist/aws-cloudwatch-logs-tui ./cmd/aws-cloudwatch-logs-tui
 
 .PHONY: install
 install:

@@ -67,6 +67,82 @@ builds:
       - goos: linux
         goarch: arm
         goarm: "7"
+  - id: aws-security-group-tui
+    main: ./cmd/aws-security-group-tui
+    binary: aws-security-group-tui
+    ldflags:
+      - -s -w
+      - -X main.Version={{.Version}}
+      - -X main.Revision={{.ShortCommit}}
+    env:
+      - CGO_ENABLED=0
+    ignore:
+      - goos: windows
+        goarch: "386"
+      - goos: darwin
+        goarch: "386"
+      - goos: linux
+        goarch: "386"
+      - goos: linux
+        goarch: arm
+        goarm: "7"
+  - id: aws-ec2-tui
+    main: ./cmd/aws-ec2-tui
+    binary: aws-ec2-tui
+    ldflags:
+      - -s -w
+      - -X main.Version={{.Version}}
+      - -X main.Revision={{.ShortCommit}}
+    env:
+      - CGO_ENABLED=0
+    ignore:
+      - goos: windows
+        goarch: "386"
+      - goos: darwin
+        goarch: "386"
+      - goos: linux
+        goarch: "386"
+      - goos: linux
+        goarch: arm
+        goarm: "7"
+  - id: aws-route53-tui
+    main: ./cmd/aws-route53-tui
+    binary: aws-route53-tui
+    ldflags:
+      - -s -w
+      - -X main.Version={{.Version}}
+      - -X main.Revision={{.ShortCommit}}
+    env:
+      - CGO_ENABLED=0
+    ignore:
+      - goos: windows
+        goarch: "386"
+      - goos: darwin
+        goarch: "386"
+      - goos: linux
+        goarch: "386"
+      - goos: linux
+        goarch: arm
+        goarm: "7"
+  - id: aws-cloudwatch-logs-tui
+    main: ./cmd/aws-cloudwatch-logs-tui
+    binary: aws-cloudwatch-logs-tui
+    ldflags:
+      - -s -w
+      - -X main.Version={{.Version}}
+      - -X main.Revision={{.ShortCommit}}
+    env:
+      - CGO_ENABLED=0
+    ignore:
+      - goos: windows
+        goarch: "386"
+      - goos: darwin
+        goarch: "386"
+      - goos: linux
+        goarch: "386"
+      - goos: linux
+        goarch: arm
+        goarm: "7"
 archives:
   - id: aws-parameter-store-tui
     ids:
@@ -99,6 +175,58 @@ archives:
       - aws-ecs-tui
     name_template: >-
       aws-ecs-tui_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+    files:
+      - README.md
+      - LICENSE
+      - CREDITS
+  - id: aws-security-group-tui
+    ids:
+      - aws-security-group-tui
+    name_template: >-
+      aws-security-group-tui_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+    files:
+      - README.md
+      - LICENSE
+      - CREDITS
+  - id: aws-ec2-tui
+    ids:
+      - aws-ec2-tui
+    name_template: >-
+      aws-ec2-tui_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+    files:
+      - README.md
+      - LICENSE
+      - CREDITS
+  - id: aws-route53-tui
+    ids:
+      - aws-route53-tui
+    name_template: >-
+      aws-route53-tui_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+    files:
+      - README.md
+      - LICENSE
+      - CREDITS
+  - id: aws-cloudwatch-logs-tui
+    ids:
+      - aws-cloudwatch-logs-tui
+    name_template: >-
+      aws-cloudwatch-logs-tui_
       {{- title .Os }}_
       {{- if eq .Arch "amd64" }}x86_64
       {{- else if eq .Arch "386" }}i386
@@ -159,4 +287,56 @@ homebrew_casks:
       name: goreleaserbot
       email: goreleaser@carlosbecker.com
     description: "TUI for browsing Amazon ECS clusters, services, and tasks"
+    homepage: "https://github.com/takaishi/aws-tui"
+  - name: aws-security-group-tui
+    ids:
+      - aws-security-group-tui
+    directory: Casks
+    repository:
+      owner: takaishi
+      name: homebrew-tap
+      token: "{{ .Env.GITHUB_TOKEN }}"
+    commit_author:
+      name: goreleaserbot
+      email: goreleaser@carlosbecker.com
+    description: "TUI for browsing Amazon EC2 security groups"
+    homepage: "https://github.com/takaishi/aws-tui"
+  - name: aws-ec2-tui
+    ids:
+      - aws-ec2-tui
+    directory: Casks
+    repository:
+      owner: takaishi
+      name: homebrew-tap
+      token: "{{ .Env.GITHUB_TOKEN }}"
+    commit_author:
+      name: goreleaserbot
+      email: goreleaser@carlosbecker.com
+    description: "TUI for browsing Amazon EC2 instances"
+    homepage: "https://github.com/takaishi/aws-tui"
+  - name: aws-route53-tui
+    ids:
+      - aws-route53-tui
+    directory: Casks
+    repository:
+      owner: takaishi
+      name: homebrew-tap
+      token: "{{ .Env.GITHUB_TOKEN }}"
+    commit_author:
+      name: goreleaserbot
+      email: goreleaser@carlosbecker.com
+    description: "TUI for browsing Amazon Route 53 hosted zones and records"
+    homepage: "https://github.com/takaishi/aws-tui"
+  - name: aws-cloudwatch-logs-tui
+    ids:
+      - aws-cloudwatch-logs-tui
+    directory: Casks
+    repository:
+      owner: takaishi
+      name: homebrew-tap
+      token: "{{ .Env.GITHUB_TOKEN }}"
+    commit_author:
+      name: goreleaserbot
+      email: goreleaser@carlosbecker.com
+    description: "TUI for browsing Amazon CloudWatch Logs groups and streams"
     homepage: "https://github.com/takaishi/aws-tui"

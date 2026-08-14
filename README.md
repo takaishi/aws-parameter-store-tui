@@ -7,6 +7,10 @@ A collection of TUI tools for AWS services. Each tool is distributed as its own 
 | [aws-parameter-store-tui](#aws-parameter-store-tui) | Browse AWS Systems Manager Parameter Store |
 | [aws-secrets-manager-tui](#aws-secrets-manager-tui) | Browse AWS Secrets Manager |
 | [aws-ecs-tui](#aws-ecs-tui) | Browse Amazon ECS clusters, services, and tasks |
+| [aws-security-group-tui](#aws-security-group-tui) | Browse Amazon EC2 security groups |
+| [aws-ec2-tui](#aws-ec2-tui) | Browse Amazon EC2 instances |
+| [aws-route53-tui](#aws-route53-tui) | Browse Amazon Route 53 hosted zones and records |
+| [aws-cloudwatch-logs-tui](#aws-cloudwatch-logs-tui) | Browse Amazon CloudWatch Logs groups and streams |
 
 ## aws-parameter-store-tui
 
@@ -152,6 +156,137 @@ Key bindings: type to fuzzy-filter the focused pane, `↑`/`↓` to move, `←`/
 - `ecs:ListServices` / `ecs:DescribeServices`
 - `ecs:ListTasks` / `ecs:DescribeTasks`
 - `ecs:DescribeTaskDefinition`
+
+## aws-security-group-tui
+
+A read-only TUI for browsing Amazon EC2 security groups: search groups, and view inbound/outbound rules including CIDR blocks, referenced security groups, and prefix lists.
+
+### Install
+
+Homebrew:
+
+```bash
+brew install --cask takaishi/tap/aws-security-group-tui
+```
+
+Go:
+
+```bash
+go install github.com/takaishi/aws-tui/cmd/aws-security-group-tui@latest
+```
+
+Prebuilt binaries are also available on the [releases page](https://github.com/takaishi/aws-tui/releases).
+
+### Usage
+
+```bash
+aws-security-group-tui [--profile <profile>] [--region <region>]
+```
+
+Key bindings are the same as aws-parameter-store-tui. `enter` on a security group shows its inbound and outbound rules; `ctrl+y` copies the group ID.
+
+### Required IAM permissions
+
+- `ec2:DescribeSecurityGroups`
+
+## aws-ec2-tui
+
+A read-only TUI for browsing Amazon EC2 instances: search instances, and view instance type, state, IPs, security groups, and tags.
+
+### Install
+
+Homebrew:
+
+```bash
+brew install --cask takaishi/tap/aws-ec2-tui
+```
+
+Go:
+
+```bash
+go install github.com/takaishi/aws-tui/cmd/aws-ec2-tui@latest
+```
+
+Prebuilt binaries are also available on the [releases page](https://github.com/takaishi/aws-tui/releases).
+
+### Usage
+
+```bash
+aws-ec2-tui [--profile <profile>] [--region <region>]
+```
+
+Key bindings are the same as aws-parameter-store-tui. `enter` on an instance shows its tags; `ctrl+y` copies the instance ID.
+
+### Required IAM permissions
+
+- `ec2:DescribeInstances`
+
+## aws-route53-tui
+
+A read-only TUI for browsing Amazon Route 53: drill down from hosted zones to their record sets, and view record values (including alias targets).
+
+### Install
+
+Homebrew:
+
+```bash
+brew install --cask takaishi/tap/aws-route53-tui
+```
+
+Go:
+
+```bash
+go install github.com/takaishi/aws-tui/cmd/aws-route53-tui@latest
+```
+
+Prebuilt binaries are also available on the [releases page](https://github.com/takaishi/aws-tui/releases).
+
+### Usage
+
+```bash
+aws-route53-tui [--profile <profile>] [--region <region>]
+```
+
+The UI is a two-pane column layout: hosted zones on the left, that zone's record sets on the right. `enter` on a record shows its type, TTL, routing policy fields, and values (or alias target). Key bindings: type to fuzzy-filter the focused pane, `↑`/`↓` to move, `←`/`→` (or `tab`/`shift+tab`) to switch panes, `ctrl+y` to copy the selected hosted zone ID, `ctrl+r` to reload the focused pane, `esc` to focus the previous pane (quit at the leftmost).
+
+### Required IAM permissions
+
+- `route53:ListHostedZones`
+- `route53:ListResourceRecordSets`
+
+## aws-cloudwatch-logs-tui
+
+A read-only TUI for browsing Amazon CloudWatch Logs: drill down from log groups to their log streams, and tail the most recent events in a stream.
+
+### Install
+
+Homebrew:
+
+```bash
+brew install --cask takaishi/tap/aws-cloudwatch-logs-tui
+```
+
+Go:
+
+```bash
+go install github.com/takaishi/aws-tui/cmd/aws-cloudwatch-logs-tui@latest
+```
+
+Prebuilt binaries are also available on the [releases page](https://github.com/takaishi/aws-tui/releases).
+
+### Usage
+
+```bash
+aws-cloudwatch-logs-tui [--profile <profile>] [--region <region>]
+```
+
+The UI is a two-pane column layout: log groups on the left, that group's log streams (most recently active first) on the right. `enter` on a stream shows its most recent events (up to 200). Key bindings: type to fuzzy-filter the focused pane, `↑`/`↓` to move, `←`/`→` (or `tab`/`shift+tab`) to switch panes, `ctrl+y` to copy the selected item's ARN, `ctrl+r` to reload the focused pane, `esc` to focus the previous pane (quit at the leftmost).
+
+### Required IAM permissions
+
+- `logs:DescribeLogGroups`
+- `logs:DescribeLogStreams`
+- `logs:GetLogEvents`
 
 ## License
 
