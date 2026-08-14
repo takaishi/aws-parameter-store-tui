@@ -40,9 +40,9 @@ Detail view:
 
 SecureString values are decrypted via `GetParameter` with `WithDecryption` and shown masked by default.
 
-## License notices
+## License
 
-Licenses of all dependencies are bundled in [CREDITS](./CREDITS). Regenerate it with `make credits`.
+[MIT](./LICENSE). Licenses of all dependencies are bundled in [CREDITS](./CREDITS); regenerate it with `make credits`, and verify dependency licenses with `make license-check`.
 
 ## Required IAM permissions
 

@@ -19,7 +19,6 @@ credits:
 	cat .credits-extra >> CREDITS
 
 # Fail if a dependency linked into the binary has a forbidden/unknown license.
-# Our own module is ignored until a LICENSE file is added.
 .PHONY: license-check
 license-check:
-	go run github.com/google/go-licenses@latest check --ignore github.com/takaishi/aws-ss-tui ./cmd/sstui
+	go run github.com/google/go-licenses@latest check ./cmd/sstui
