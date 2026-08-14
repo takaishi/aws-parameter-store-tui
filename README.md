@@ -1,8 +1,16 @@
-# aws-parameter-store-tui
+# aws-tui
+
+A collection of TUI tools for AWS services. Each tool is distributed as its own binary from this repository.
+
+| Tool | Description |
+| --- | --- |
+| [aws-parameter-store-tui](#aws-parameter-store-tui) | Browse AWS Systems Manager Parameter Store |
+
+## aws-parameter-store-tui
 
 A TUI for browsing AWS Systems Manager Parameter Store: search parameters, view values, and copy secrets to the clipboard.
 
-## Install
+### Install
 
 Homebrew:
 
@@ -13,12 +21,12 @@ brew install --cask takaishi/tap/aws-parameter-store-tui
 Go:
 
 ```bash
-go install github.com/takaishi/aws-parameter-store-tui/cmd/aws-parameter-store-tui@latest
+go install github.com/takaishi/aws-tui/cmd/aws-parameter-store-tui@latest
 ```
 
-Prebuilt binaries are also available on the [releases page](https://github.com/takaishi/aws-parameter-store-tui/releases).
+Prebuilt binaries are also available on the [releases page](https://github.com/takaishi/aws-tui/releases).
 
-## Usage
+### Usage
 
 ```bash
 aws-parameter-store-tui [--profile <profile>] [--region <region>]
@@ -26,7 +34,7 @@ aws-parameter-store-tui [--profile <profile>] [--region <region>]
 
 AWS credentials are resolved via the standard AWS SDK chain (`AWS_PROFILE`, shared config, SSO, etc.).
 
-### Key bindings
+#### Key bindings
 
 List view:
 
@@ -50,7 +58,7 @@ Detail view:
 
 SecureString values are decrypted via `GetParameter` with `WithDecryption` and shown masked by default.
 
-## Required IAM permissions
+### Required IAM permissions
 
 - `ssm:DescribeParameters`
 - `ssm:GetParameter`

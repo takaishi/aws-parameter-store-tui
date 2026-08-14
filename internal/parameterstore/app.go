@@ -1,4 +1,4 @@
-package awsparameterstoretui
+package parameterstore
 
 import (
 	"context"

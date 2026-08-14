@@ -1,18 +1,20 @@
 version: 2
 
-project_name: aws-parameter-store-tui
+# This repository (aws-tui) hosts multiple AWS TUI tools. Each tool has its
+# own build/archive/cask entry keyed by id; all tools are released together
+# under a single tag.
+project_name: aws-tui
 env:
   - GO111MODULE=on
 before:
   hooks:
     - go mod tidy
 builds:
-  - main: ./cmd/aws-parameter-store-tui
+  - id: aws-parameter-store-tui
+    main: ./cmd/aws-parameter-store-tui
     binary: aws-parameter-store-tui
     ldflags:
       - -s -w
-      - -X github.com/takaishi/aws-parameter-store-tui.Version={{.Version}}
-      - -X github.com/takaishi/aws-parameter-store-tui.Revision={{.ShortCommit}}
       - -X main.Version={{.Version}}
       - -X main.Revision={{.ShortCommit}}
     env:
@@ -28,9 +30,11 @@ builds:
         goarch: arm
         goarm: "7"
 archives:
-  - id: build
+  - id: aws-parameter-store-tui
+    ids:
+      - aws-parameter-store-tui
     name_template: >-
-      {{ .ProjectName }}_
+      aws-parameter-store-tui_
       {{- title .Os }}_
       {{- if eq .Arch "amd64" }}x86_64
       {{- else if eq .Arch "386" }}i386
@@ -54,6 +58,8 @@ changelog:
 
 homebrew_casks:
   - name: aws-parameter-store-tui
+    ids:
+      - aws-parameter-store-tui
     directory: Casks
     repository:
       owner: takaishi
@@ -63,4 +69,4 @@ homebrew_casks:
       name: goreleaserbot
       email: goreleaser@carlosbecker.com
     description: "TUI for browsing AWS Systems Manager Parameter Store"
-    homepage: "https://github.com/takaishi/aws-parameter-store-tui"
+    homepage: "https://github.com/takaishi/aws-tui"

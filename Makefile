@@ -4,7 +4,7 @@ build:
 
 .PHONY: install
 install:
-	go install github.com/takaishi/aws-parameter-store-tui/cmd/aws-parameter-store-tui
+	go install github.com/takaishi/aws-tui/cmd/aws-parameter-store-tui
 
 .PHONY: test
 test:
