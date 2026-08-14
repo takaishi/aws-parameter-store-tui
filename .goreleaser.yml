@@ -48,6 +48,25 @@ builds:
       - goos: linux
         goarch: arm
         goarm: "7"
+  - id: aws-ecs-tui
+    main: ./cmd/aws-ecs-tui
+    binary: aws-ecs-tui
+    ldflags:
+      - -s -w
+      - -X main.Version={{.Version}}
+      - -X main.Revision={{.ShortCommit}}
+    env:
+      - CGO_ENABLED=0
+    ignore:
+      - goos: windows
+        goarch: "386"
+      - goos: darwin
+        goarch: "386"
+      - goos: linux
+        goarch: "386"
+      - goos: linux
+        goarch: arm
+        goarm: "7"
 archives:
   - id: aws-parameter-store-tui
     ids:
@@ -67,6 +86,19 @@ archives:
       - aws-secrets-manager-tui
     name_template: >-
       aws-secrets-manager-tui_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+    files:
+      - README.md
+      - LICENSE
+      - CREDITS
+  - id: aws-ecs-tui
+    ids:
+      - aws-ecs-tui
+    name_template: >-
+      aws-ecs-tui_
       {{- title .Os }}_
       {{- if eq .Arch "amd64" }}x86_64
       {{- else if eq .Arch "386" }}i386
@@ -114,4 +146,17 @@ homebrew_casks:
       name: goreleaserbot
       email: goreleaser@carlosbecker.com
     description: "TUI for browsing AWS Secrets Manager"
+    homepage: "https://github.com/takaishi/aws-tui"
+  - name: aws-ecs-tui
+    ids:
+      - aws-ecs-tui
+    directory: Casks
+    repository:
+      owner: takaishi
+      name: homebrew-tap
+      token: "{{ .Env.GITHUB_TOKEN }}"
+    commit_author:
+      name: goreleaserbot
+      email: goreleaser@carlosbecker.com
+    description: "TUI for browsing Amazon ECS clusters, services, and tasks"
     homepage: "https://github.com/takaishi/aws-tui"

@@ -1,4 +1,4 @@
-package parameterstore
+package ecs
 
 import (
 	"context"
@@ -32,5 +32,13 @@ func (app *App) Run(ctx context.Context) error {
 		return fmt.Errorf("failed to load AWS config: %w", err)
 	}
 
-	return ui.Run(ctx, newScreen(NewSSMClient(cfg), cfg.Region))
+	client := NewClient(cfg)
+	var root *ui.Screen
+	if app.CLI.Cluster != "" {
+		title := fmt.Sprintf("Amazon ECS (%s) > %s", cfg.Region, app.CLI.Cluster)
+		root = servicesScreen(client, title, app.CLI.Cluster)
+	} else {
+		root = clustersScreen(client, cfg.Region)
+	}
+	return ui.Run(ctx, root, ui.WithColumns())
 }

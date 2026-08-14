@@ -6,6 +6,7 @@ A collection of TUI tools for AWS services. Each tool is distributed as its own 
 | --- | --- |
 | [aws-parameter-store-tui](#aws-parameter-store-tui) | Browse AWS Systems Manager Parameter Store |
 | [aws-secrets-manager-tui](#aws-secrets-manager-tui) | Browse AWS Secrets Manager |
+| [aws-ecs-tui](#aws-ecs-tui) | Browse Amazon ECS clusters, services, and tasks |
 
 ## aws-parameter-store-tui
 
@@ -101,6 +102,56 @@ Key bindings are the same as aws-parameter-store-tui. Secret values are always s
 - `secretsmanager:ListSecrets`
 - `secretsmanager:GetSecretValue`
 - `kms:Decrypt` (for secrets encrypted with a customer managed key)
+
+## aws-ecs-tui
+
+A read-only TUI for browsing Amazon ECS: drill down from clusters to services to tasks, check deployment rollout state and service events, inspect why tasks stopped, and view task definitions including environment variables.
+
+### Install
+
+Homebrew:
+
+```bash
+brew install --cask takaishi/tap/aws-ecs-tui
+```
+
+Go:
+
+```bash
+go install github.com/takaishi/aws-tui/cmd/aws-ecs-tui@latest
+```
+
+Prebuilt binaries are also available on the [releases page](https://github.com/takaishi/aws-tui/releases).
+
+### Usage
+
+```bash
+aws-ecs-tui [--profile <profile>] [--region <region>] [--cluster <cluster>]
+```
+
+With `--cluster`, the TUI starts directly at that cluster's service list.
+
+The UI is a three-pane column layout:
+
+```
+┌ clusters ──────┬ services ──────┬ service ────────────────────────────┐
+│ > prod         │ > web          │   Detail & events                   │
+│   staging      │   worker       │   Task definition (my-app:42)      │
+│                │                │ > 1a2b3c… (RUNNING (HEALTHY))       │
+│                │                │   4d5e6f… (STOPPED — Essential …)   │
+└────────────────┴────────────────┴─────────────────────────────────────┘
+```
+
+The rightmost pane lists the service's running and recently stopped tasks (stopped reason inline), preceded by entries for the service's detail & events and its task definition (images, env vars, secrets, log config). `enter` on a task (or on Detail & events / Task definition) opens its detail — containers, exit codes, private IP, stop code — in the rightmost pane, keeping the column layout; ancestor panes stay visible on the left.
+
+Key bindings: type to fuzzy-filter the focused pane, `↑`/`↓` to move, `←`/`→` (or `tab`/`shift+tab`) to switch panes, `enter` to open, `ctrl+y` to copy the selected item's ARN, `ctrl+r` to reload the focused pane, `esc` to focus the previous pane (quit at the leftmost). The pane to the right of the focused one previews the current selection automatically, debounced so that holding `↓` doesn't fire an API call per row.
+
+### Required IAM permissions
+
+- `ecs:ListClusters` / `ecs:DescribeClusters`
+- `ecs:ListServices` / `ecs:DescribeServices`
+- `ecs:ListTasks` / `ecs:DescribeTasks`
+- `ecs:DescribeTaskDefinition`
 
 ## License
 

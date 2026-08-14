@@ -2,6 +2,7 @@
 build:
 	go build -o dist/aws-parameter-store-tui ./cmd/aws-parameter-store-tui
 	go build -o dist/aws-secrets-manager-tui ./cmd/aws-secrets-manager-tui
+	go build -o dist/aws-ecs-tui ./cmd/aws-ecs-tui
 
 .PHONY: install
 install:
