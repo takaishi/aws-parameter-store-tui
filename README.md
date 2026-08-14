@@ -4,9 +4,19 @@ A TUI for browsing AWS Systems Manager Parameter Store: search parameters, view 
 
 ## Install
 
+Homebrew:
+
+```bash
+brew install --cask takaishi/tap/sstui
+```
+
+Go:
+
 ```bash
 go install github.com/takaishi/aws-parameter-store-tui/cmd/sstui@latest
 ```
+
+Prebuilt binaries are also available on the [releases page](https://github.com/takaishi/aws-parameter-store-tui/releases).
 
 ## Usage
 
@@ -40,12 +50,12 @@ Detail view:
 
 SecureString values are decrypted via `GetParameter` with `WithDecryption` and shown masked by default.
 
-## License
-
-[MIT](./LICENSE). Licenses of all dependencies are bundled in [CREDITS](./CREDITS); regenerate it with `make credits`, and verify dependency licenses with `make license-check`.
-
 ## Required IAM permissions
 
 - `ssm:DescribeParameters`
 - `ssm:GetParameter`
 - `kms:Decrypt` (for SecureString parameters)
+
+## License
+
+[MIT](./LICENSE). Licenses of all dependencies are bundled in [CREDITS](./CREDITS); regenerate it with `make credits`, and verify dependency licenses with `make license-check`.
