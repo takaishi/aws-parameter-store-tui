@@ -1,4 +1,4 @@
-package pstui
+package apstui
 
 import (
 	"context"
@@ -29,7 +29,7 @@ func (v VersionFlag) BeforeApply(app *kong.Kong, vars kong.Vars) error {
 func RunCLI(ctx context.Context, args []string) error {
 	cli := CLI{}
 	parser, err := kong.New(&cli,
-		kong.Name("pstui"),
+		kong.Name("aws-parameter-store-tui"),
 		kong.Description("TUI for browsing AWS Systems Manager Parameter Store"),
 	)
 	if err != nil {

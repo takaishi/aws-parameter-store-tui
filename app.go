@@ -1,4 +1,4 @@
-package pstui
+package apstui
 
 import (
 	"context"

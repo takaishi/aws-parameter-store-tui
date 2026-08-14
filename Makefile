@@ -1,10 +1,10 @@
 .PHONY: build
 build:
-	go build -o dist/pstui ./cmd/pstui
+	go build -o dist/aws-parameter-store-tui ./cmd/aws-parameter-store-tui
 
 .PHONY: install
 install:
-	go install github.com/takaishi/aws-parameter-store-tui/cmd/pstui
+	go install github.com/takaishi/aws-parameter-store-tui/cmd/aws-parameter-store-tui
 
 .PHONY: test
 test:
@@ -21,4 +21,4 @@ credits:
 # Fail if a dependency linked into the binary has a forbidden/unknown license.
 .PHONY: license-check
 license-check:
-	go run github.com/google/go-licenses@latest check ./cmd/pstui
+	go run github.com/google/go-licenses@latest check ./cmd/aws-parameter-store-tui

@@ -1,14 +1,14 @@
 version: 2
 
-project_name: pstui
+project_name: aws-parameter-store-tui
 env:
   - GO111MODULE=on
 before:
   hooks:
     - go mod tidy
 builds:
-  - main: ./cmd/pstui
-    binary: pstui
+  - main: ./cmd/aws-parameter-store-tui
+    binary: aws-parameter-store-tui
     ldflags:
       - -s -w
       - -X github.com/takaishi/aws-parameter-store-tui.Version={{.Version}}
@@ -53,7 +53,7 @@ changelog:
       - '^test:'
 
 homebrew_casks:
-  - name: pstui
+  - name: aws-parameter-store-tui
     directory: Casks
     repository:
       owner: takaishi
