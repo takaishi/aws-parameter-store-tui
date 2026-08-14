@@ -29,12 +29,44 @@ builds:
       - goos: linux
         goarch: arm
         goarm: "7"
+  - id: aws-secrets-manager-tui
+    main: ./cmd/aws-secrets-manager-tui
+    binary: aws-secrets-manager-tui
+    ldflags:
+      - -s -w
+      - -X main.Version={{.Version}}
+      - -X main.Revision={{.ShortCommit}}
+    env:
+      - CGO_ENABLED=0
+    ignore:
+      - goos: windows
+        goarch: "386"
+      - goos: darwin
+        goarch: "386"
+      - goos: linux
+        goarch: "386"
+      - goos: linux
+        goarch: arm
+        goarm: "7"
 archives:
   - id: aws-parameter-store-tui
     ids:
       - aws-parameter-store-tui
     name_template: >-
       aws-parameter-store-tui_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+    files:
+      - README.md
+      - LICENSE
+      - CREDITS
+  - id: aws-secrets-manager-tui
+    ids:
+      - aws-secrets-manager-tui
+    name_template: >-
+      aws-secrets-manager-tui_
       {{- title .Os }}_
       {{- if eq .Arch "amd64" }}x86_64
       {{- else if eq .Arch "386" }}i386
@@ -69,4 +101,17 @@ homebrew_casks:
       name: goreleaserbot
       email: goreleaser@carlosbecker.com
     description: "TUI for browsing AWS Systems Manager Parameter Store"
+    homepage: "https://github.com/takaishi/aws-tui"
+  - name: aws-secrets-manager-tui
+    ids:
+      - aws-secrets-manager-tui
+    directory: Casks
+    repository:
+      owner: takaishi
+      name: homebrew-tap
+      token: "{{ .Env.GITHUB_TOKEN }}"
+    commit_author:
+      name: goreleaserbot
+      email: goreleaser@carlosbecker.com
+    description: "TUI for browsing AWS Secrets Manager"
     homepage: "https://github.com/takaishi/aws-tui"

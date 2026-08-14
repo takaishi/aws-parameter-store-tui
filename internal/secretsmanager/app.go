@@ -1,4 +1,4 @@
-package parameterstore
+package secretsmanager
 
 import (
 	"context"
@@ -32,5 +32,5 @@ func (app *App) Run(ctx context.Context) error {
 		return fmt.Errorf("failed to load AWS config: %w", err)
 	}
 
-	return ui.Run(ctx, &backend{client: NewSSMClient(cfg)}, cfg.Region)
+	return ui.Run(ctx, &backend{client: NewClient(cfg)}, cfg.Region)
 }
