@@ -1,0 +1,66 @@
+version: 2
+
+project_name: sstui
+env:
+  - GO111MODULE=on
+before:
+  hooks:
+    - go mod tidy
+builds:
+  - main: ./cmd/sstui
+    binary: sstui
+    ldflags:
+      - -s -w
+      - -X github.com/takaishi/aws-ss-tui.Version={{.Version}}
+      - -X github.com/takaishi/aws-ss-tui.Revision={{.ShortCommit}}
+      - -X main.Version={{.Version}}
+      - -X main.Revision={{.ShortCommit}}
+    env:
+      - CGO_ENABLED=0
+    ignore:
+      - goos: windows
+        goarch: "386"
+      - goos: darwin
+        goarch: "386"
+      - goos: linux
+        goarch: "386"
+      - goos: linux
+        goarch: arm
+        goarm: "7"
+archives:
+  - id: build
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+    files:
+      - README.md
+      - LICENSE
+      - CREDITS
+release:
+  prerelease: auto
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  version_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+
+homebrew_casks:
+  - name: sstui
+    directory: Casks
+    repository:
+      owner: takaishi
+      name: homebrew-tap
+      token: "{{ .Env.GITHUB_TOKEN }}"
+    commit_author:
+      name: goreleaserbot
+      email: goreleaser@carlosbecker.com
+    description: "TUI for browsing AWS Systems Manager Parameter Store"
+    homepage: "https://github.com/takaishi/aws-ss-tui"
