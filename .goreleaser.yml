@@ -1,14 +1,14 @@
 version: 2
 
-project_name: sstui
+project_name: pstui
 env:
   - GO111MODULE=on
 before:
   hooks:
     - go mod tidy
 builds:
-  - main: ./cmd/sstui
-    binary: sstui
+  - main: ./cmd/pstui
+    binary: pstui
     ldflags:
       - -s -w
       - -X github.com/takaishi/aws-parameter-store-tui.Version={{.Version}}
@@ -53,7 +53,7 @@ changelog:
       - '^test:'
 
 homebrew_casks:
-  - name: sstui
+  - name: pstui
     directory: Casks
     repository:
       owner: takaishi

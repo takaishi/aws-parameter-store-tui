@@ -6,20 +6,20 @@ import (
 	"os"
 	"os/signal"
 
-	sstui "github.com/takaishi/aws-parameter-store-tui"
+	pstui "github.com/takaishi/aws-parameter-store-tui"
 )
 
 var Version = "dev"
 var Revision = "HEAD"
 
 func main() {
-	sstui.Version = Version
-	sstui.Revision = Revision
+	pstui.Version = Version
+	pstui.Revision = Revision
 
 	ctx := context.Background()
 	ctx, stop := signal.NotifyContext(ctx, os.Interrupt)
 	defer stop()
-	if err := sstui.RunCLI(ctx, os.Args[1:]); err != nil {
+	if err := pstui.RunCLI(ctx, os.Args[1:]); err != nil {
 		log.Printf("error: %v", err)
 		os.Exit(1)
 	}

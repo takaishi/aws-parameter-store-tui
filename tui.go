@@ -1,4 +1,4 @@
-package sstui
+package pstui
 
 import (
 	"context"
@@ -349,7 +349,7 @@ func (m model) View() string {
 func (m model) viewList() string {
 	var b strings.Builder
 
-	title := fmt.Sprintf("sstui — AWS Parameter Store (%s)", m.region)
+	title := fmt.Sprintf("pstui — AWS Parameter Store (%s)", m.region)
 	b.WriteString(titleStyle.Render(title))
 	b.WriteString("\n")
 	b.WriteString(m.input.View())
@@ -391,7 +391,7 @@ func (m model) viewList() string {
 func (m model) viewDetail() string {
 	var b strings.Builder
 
-	b.WriteString(titleStyle.Render("sstui — Parameter Detail"))
+	b.WriteString(titleStyle.Render("pstui — Parameter Detail"))
 	b.WriteString("\n\n")
 	b.WriteString(fmt.Sprintf("%s %s\n", labelStyle.Render("Name:"), m.detail.Name))
 	b.WriteString(fmt.Sprintf("%s %s\n", labelStyle.Render("Type:"), m.detail.Type))

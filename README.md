@@ -1,19 +1,19 @@
 # aws-parameter-store-tui
 
-A TUI for browsing AWS Systems Manager Parameter Store: search parameters, view values, and copy secrets to the clipboard. The command name is `sstui`.
+A TUI for browsing AWS Systems Manager Parameter Store: search parameters, view values, and copy secrets to the clipboard. The command name is `pstui`.
 
 ## Install
 
 Homebrew:
 
 ```bash
-brew install --cask takaishi/tap/sstui
+brew install --cask takaishi/tap/pstui
 ```
 
 Go:
 
 ```bash
-go install github.com/takaishi/aws-parameter-store-tui/cmd/sstui@latest
+go install github.com/takaishi/aws-parameter-store-tui/cmd/pstui@latest
 ```
 
 Prebuilt binaries are also available on the [releases page](https://github.com/takaishi/aws-parameter-store-tui/releases).
@@ -21,7 +21,7 @@ Prebuilt binaries are also available on the [releases page](https://github.com/t
 ## Usage
 
 ```bash
-sstui [--profile <profile>] [--region <region>]
+pstui [--profile <profile>] [--region <region>]
 ```
 
 AWS credentials are resolved via the standard AWS SDK chain (`AWS_PROFILE`, shared config, SSO, etc.).
