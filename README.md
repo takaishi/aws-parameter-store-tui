@@ -40,6 +40,10 @@ Detail view:
 
 SecureString values are decrypted via `GetParameter` with `WithDecryption` and shown masked by default.
 
+## License notices
+
+Licenses of all dependencies are bundled in [CREDITS](./CREDITS). Regenerate it with `make credits`.
+
 ## Required IAM permissions
 
 - `ssm:DescribeParameters`
