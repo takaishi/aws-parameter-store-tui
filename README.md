@@ -5,7 +5,7 @@ A TUI for browsing AWS Systems Manager Parameter Store: search parameters, view 
 ## Install
 
 ```bash
-go install github.com/takaishi/aws-ss-tui/cmd/sstui@latest
+go install github.com/takaishi/aws-parameter-store-tui/cmd/sstui@latest
 ```
 
 ## Usage

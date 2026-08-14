@@ -1,4 +1,4 @@
-module github.com/takaishi/aws-ss-tui
+module github.com/takaishi/aws-parameter-store-tui
 
 go 1.24.2
 

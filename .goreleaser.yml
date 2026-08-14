@@ -11,8 +11,8 @@ builds:
     binary: sstui
     ldflags:
       - -s -w
-      - -X github.com/takaishi/aws-ss-tui.Version={{.Version}}
-      - -X github.com/takaishi/aws-ss-tui.Revision={{.ShortCommit}}
+      - -X github.com/takaishi/aws-parameter-store-tui.Version={{.Version}}
+      - -X github.com/takaishi/aws-parameter-store-tui.Revision={{.ShortCommit}}
       - -X main.Version={{.Version}}
       - -X main.Revision={{.ShortCommit}}
     env:
@@ -63,4 +63,4 @@ homebrew_casks:
       name: goreleaserbot
       email: goreleaser@carlosbecker.com
     description: "TUI for browsing AWS Systems Manager Parameter Store"
-    homepage: "https://github.com/takaishi/aws-ss-tui"
+    homepage: "https://github.com/takaishi/aws-parameter-store-tui"

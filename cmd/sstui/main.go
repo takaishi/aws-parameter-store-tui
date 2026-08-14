@@ -6,7 +6,7 @@ import (
 	"os"
 	"os/signal"
 
-	sstui "github.com/takaishi/aws-ss-tui"
+	sstui "github.com/takaishi/aws-parameter-store-tui"
 )
 
 var Version = "dev"
