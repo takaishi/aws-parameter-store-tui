@@ -17,3 +17,9 @@ test:
 credits:
 	go run github.com/Songmu/gocredits/cmd/gocredits@latest -skip-missing -w .
 	cat .credits-extra >> CREDITS
+
+# Fail if a dependency linked into the binary has a forbidden/unknown license.
+# Our own module is ignored until a LICENSE file is added.
+.PHONY: license-check
+license-check:
+	go run github.com/google/go-licenses@latest check --ignore github.com/takaishi/aws-ss-tui ./cmd/sstui
