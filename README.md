@@ -1,6 +1,6 @@
-# sstui
+# aws-parameter-store-tui
 
-A TUI for browsing AWS Systems Manager Parameter Store: search parameters, view values, and copy secrets to the clipboard.
+A TUI for browsing AWS Systems Manager Parameter Store: search parameters, view values, and copy secrets to the clipboard. The command name is `sstui`.
 
 ## Install
 
