@@ -1,4 +1,4 @@
-package apstui
+package awsparameterstoretui
 
 import (
 	"context"
